@@ -3,9 +3,11 @@ import './app.css';
 import Quiz from "./components/Quiz";
 import { data } from "./data";
 import Timer from "./components/Timer";
+import Start from "./components/Start";
 //pokrecem aplikaciju: npm start
 
 function App() {
+  const [userName,setUserName]=useState(null);
 
   const [brojPitanja,setBrojPitanja]= useState(1); //da bude active u klasi
   const [stop,setStop]= useState(false);//kad dodje do 30 postace true i znaci da smo izgubili
@@ -37,7 +39,8 @@ function App() {
   },[moneyPyramid,brojPitanja]);
   return (
     <div className="App">
-      <div className="main">
+      {userName? (<>
+        <div className="main">
         {stop ? <h1 className="endtext">Zaradili ste: {zaradjenNovac}</h1>: (
         <>
         <div className="top">
@@ -60,6 +63,8 @@ function App() {
           ))}
         </ul>
         </div>
+      </>): <Start setUserName={setUserName}/> }
+      
     </div>
   );
 }
