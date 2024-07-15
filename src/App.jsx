@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import './app.css';
 import Quiz from "./components/Quiz";
 import { data } from "./data";
+import Timer from "./components/Timer";
 //pokrecem aplikaciju: npm start
 
 function App() {
@@ -9,7 +10,9 @@ function App() {
   const [brojPitanja,setBrojPitanja]= useState(1); //da bude active u klasi
   const [stop,setStop]= useState(false);//kad dodje do 30 postace true i znaci da smo izgubili
 //stop cu isto da koristim za netacne odgovore jer sam tad izgubila
-  const moneyPyramid = [
+
+  const [zaradjenNovac,setZaradjenNovac]=useState("0 RSD");
+  const moneyPyramid = useMemo(()=>[
     {id:1, amount:"RSD 1000"},
     {id:2, amount:"RSD 2000"},
     {id:3, amount:"RSD 3000"},
@@ -25,17 +28,27 @@ function App() {
     {id:13, amount:"RSD 700000"},
     {id:14, amount:"RSD 800000"},
     {id:15, amount:"RSD 1000000"}
-  ].reverse();
+  ].reverse()
+  ,[]);
 
+  useEffect(()=>{
+    //ako sam na 3. pitanju ne treba da imam 3000 nego 2000
+    brojPitanja>1 && setZaradjenNovac(moneyPyramid.find(m=>m.id === brojPitanja-1).amount)
+  },[moneyPyramid,brojPitanja]);
   return (
     <div className="App">
       <div className="main">
+        {stop ? <h1 className="endtext">Zaradili ste: {zaradjenNovac}</h1>: (
+        <>
         <div className="top">
-          <div className="timer">30s</div>
+          <div className="timer">
+          <Timer setStop={setStop} brojPitanja={brojPitanja} />
+          </div>
         </div>
         <div className="bottom">
           <Quiz data={data} setStop={setStop} setBrojPitanja={setBrojPitanja} brojPitanja={brojPitanja}/>
         </div>
+      </>)}
       </div>
       <div className="pyramid">
         <ul className="moneyList">

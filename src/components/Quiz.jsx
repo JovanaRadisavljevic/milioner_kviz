@@ -10,12 +10,29 @@ export default function Quiz({data,setStop,setBrojPitanja,brojPitanja}){
         setPitanje(data[brojPitanja-1]);
     },[data,brojPitanja]) //kad god dodje do promene neke od ove dve varijable izvrsice se useEffect
     
+    const delay = (duration, callback) => {
+        setTimeout(()=>{
+            callback();
+        },duration);
+    };
+
     const handleClick = (o) => {
         setSelektovanOdgovor(o);
         setClassName("odgovor active");
-        setTimeout(()=>{
-            setClassName(o.correct? "odgovor correct": "odgovor wrong");
-        },1500);
+        //prvi delay ce da run-uje animacije 
+        delay(3000,()=>
+            setClassName(o.correct? "odgovor correct": "odgovor wrong")
+        );
+        delay(6000,()=>
+            {
+                if(o.correct){
+                    setBrojPitanja(prev=>prev+1);
+                    setSelektovanOdgovor(null);//jer ide novo pitanje
+                }else{
+                    setStop(true);
+                }
+            }
+        );
     }
     return(
         <div className="quiz">
