@@ -1,12 +1,14 @@
 import React, { useState } from "react";
 import './app.css';
 import Quiz from "./components/Quiz";
+import { data } from "./data";
 //pokrecem aplikaciju: npm start
 
 function App() {
 
   const [brojPitanja,setBrojPitanja]= useState(1); //da bude active u klasi
-
+  const [stop,setStop]= useState(false);//kad dodje do 30 postace true i znaci da smo izgubili
+//stop cu isto da koristim za netacne odgovore jer sam tad izgubila
   const moneyPyramid = [
     {id:1, amount:"RSD 1000"},
     {id:2, amount:"RSD 2000"},
@@ -32,7 +34,7 @@ function App() {
           <div className="timer">30s</div>
         </div>
         <div className="bottom">
-          <Quiz />
+          <Quiz data={data} setStop={setStop} setBrojPitanja={setBrojPitanja} brojPitanja={brojPitanja}/>
         </div>
       </div>
       <div className="pyramid">
