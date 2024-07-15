@@ -1,6 +1,132 @@
-.app{
+.App{
     height: 100vh;
     display: flex;
     background-color: #020230;
     color: white;
+}
+.main{
+    width: 75%;
+    background: linear-gradient(to bottom, rgba(0,0,0,0),#020230) ,
+    url('./assets/bg.jpg') center;
+    display: flex;
+    flex-direction: column;
+}
+.top{
+    height: 50%;
+    position: relative;
+}
+.timer{
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    border: 5px solid white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 30px;
+    font-weight: 700;
+    position: absolute;
+    bottom: 10px;
+    left: 10%;
+}
+.bottom{
+    height: 50%;
+}
+.quiz{
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+}
+.pitanje{
+    width: 80%;
+    background: linear-gradient(#100241, black);
+    border: 2px solid white;
+    text-align: center;
+    padding: 20px;
+    border-radius: 10px;
+    font-size: 20px;
+}
+.odgovori{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+.odgovor{
+    width: 40%;
+    padding: 10px;
+    text-align: center;
+    background: linear-gradient(#0e0124, #22074d);
+    border:  1px solid white;
+    border-radius: 15px;
+    font-size: 20px;
+    font-weight: 300;
+    margin: 0px 10px 20px 10px;
+    cursor: pointer;
+}
+/*kad prodjem misem preko odgovora menja se boja i kad kliknem na neki odgovor
+boja se menja*/
+.odgovor:hover, .odgovor.active{
+    background: mediumblue;
+}
+.odgovor.correct{
+    animation: correct 3s ease forwards;
+}
+/*keyframes correct - ovo sluzi da tacan odgovor tri puta "zatreperi" i postane zelen*/
+@keyframes correct {
+    0%, 22% , 42%{
+        background: mediumblue;
+    }
+    20%, 40%,60%{
+        background: linear-gradient(#0e0124, #22074d);
+    }
+    62%, 100%{
+        background: green;
+    }
+}
+.odgovor.wrong{
+    animation: wrong 3s ease forwards;
+}
+/*keyframes wrong - ovo sluzi da netacan odgovor tri puta "zatreperi" i postane crven*/
+@keyframes wrong {
+    0%, 22% , 42%{
+        background: mediumblue;
+    }
+    20%, 40%,60%{
+        background: linear-gradient(#0e0124, #22074d);
+    }
+    62%, 100%{
+        background: rgb(142, 10, 10);
+    }
+}
+.pyramid{
+    width: 25%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.moneyList{
+    list-style: none;
+    width: 100%;
+    padding: 20px;
+}
+.moneyListItem{
+    display: flex;
+    align-items: center;
+    padding: 5px;
+    border-radius: 5px;
+}
+.moneyListItem.active{
+    background-color: teal;
+}
+.moneyListItemNumber{
+    width: 20%;
+    font-size: 18px;
+    font-weight: 100;
+}
+.moneyListItemAmount{
+    font-size: 20px;
+    font-weight: 300;
 }
